@@ -10,7 +10,4 @@ public record UpdateCommentDto(
         @NotBlank
         String author) {
 
-    public Comment toEntity(){
-        return new Comment(content, author);
-    }
 }
