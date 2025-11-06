@@ -12,8 +12,8 @@ import java.util.Map;
 public class GlobalExceptionHandler {
 
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<?> handleValidation(MethodArgumentNotValidException e) {
-        String message = e.getBindingResult().getFieldError().getDefaultMessage();
+    public ResponseEntity<?> handleValidation() {
+        String message = "공백 또는 null 값은 혀용하지 않습니다";
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
                 .body(Map.of("error", message));
