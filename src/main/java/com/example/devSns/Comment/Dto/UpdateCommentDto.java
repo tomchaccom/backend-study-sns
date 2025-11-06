@@ -1,6 +1,5 @@
 package com.example.devSns.Comment.Dto;
 
-import com.example.devSns.Comment.Comment;
 import jakarta.validation.constraints.NotBlank;
 
 public record UpdateCommentDto(
