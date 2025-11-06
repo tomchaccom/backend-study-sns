@@ -2,6 +2,7 @@ package com.example.devSns.Comment;
 
 import com.example.devSns.Comment.Dto.CreateCommentDto;
 import com.example.devSns.Comment.Dto.UpdateCommentDto;
+import jakarta.validation.Valid;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -17,6 +18,7 @@ public class CommentController {
 
     @PostMapping("posts/{post_id}/comments")
     public void postComment(
+            @Valid
             @RequestBody CreateCommentDto dto,
             @PathVariable Long post_id) {
         commentService.createComment(post_id, dto);
@@ -24,6 +26,7 @@ public class CommentController {
 
     @PostMapping("posts/{post_id}/comments/{comment_id}")
     public void postReplyComment(
+            @Valid
             @RequestBody CreateCommentDto dto,
             @PathVariable Long post_id,
             @PathVariable Long comment_id
@@ -45,6 +48,7 @@ public class CommentController {
     @PatchMapping("/comments/{comment_id}")
     public Comment updateComment(
             @PathVariable("comment_id") Long comment_id,
+            @Valid
             @RequestBody UpdateCommentDto dto) {
             return commentService.updateComment(comment_id, dto);
 

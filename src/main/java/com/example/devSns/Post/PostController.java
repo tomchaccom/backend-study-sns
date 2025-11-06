@@ -3,6 +3,7 @@ package com.example.devSns.Post;
 import com.example.devSns.Post.Dto.AddPostRequestDto;
 import com.example.devSns.Post.Dto.GetPostResponseDto;
 import com.example.devSns.Post.Dto.UpdatePostRequestDto;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,7 +21,9 @@ public class PostController {
     }
 
     @PostMapping()
-    public ResponseEntity<Void> createPost(@RequestBody AddPostRequestDto Dto) {
+    public ResponseEntity<Void> createPost(
+            @Valid
+            @RequestBody AddPostRequestDto Dto) {
         postService.createPost(Dto);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
@@ -36,6 +39,7 @@ public class PostController {
 
     @PatchMapping("/{post_id}")
     public void updatePost(
+            @Valid
             @RequestBody UpdatePostRequestDto Dto,
             @PathVariable(name ="post_id") Long id) {
         postService.updatePost(id, Dto);
