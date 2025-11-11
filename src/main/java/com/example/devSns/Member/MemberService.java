@@ -33,8 +33,9 @@ public class MemberService {
 
     // 멤버 객체 생성 (회원가입_느낌으로다가)
     @Transactional
-    public void createMember(SignMemberRequestDto dto) {
-        memberRepository.save(dto.toEntity());
+    public GetMemberResponseDto createMember(SignMemberRequestDto dto) {
+        Member saved = memberRepository.save(dto.toEntity());
+        return new GetMemberResponseDto(saved);
     }
 
     // 특정 멤버 검색하기
@@ -64,7 +65,7 @@ public class MemberService {
     }
     @Transactional
     // 좋아요 상태를 토글
-    public void addHeartCount(Long postId, Long memberId){ // memberId는 나중에 토큰에서 읽어오기
+    public void convertLikeStatus(Long postId, Long memberId){ // memberId는 나중에 토큰에서 읽어오기
 
 
         Post post = postRepository.findById(postId)
@@ -84,7 +85,7 @@ public class MemberService {
         }
         else{
             Heart heart = heartRepository.findByPostIdAndMemberId(postId, memberId)
-                    .orElseThrow(() -> new EntityNotFoundException("좋아요 없음"));
+                    .orElseThrow(() -> new EntityNotFoundException("게시글 없음"));
 
             heart.toggleLike();
             heartRepository.save(heart);
