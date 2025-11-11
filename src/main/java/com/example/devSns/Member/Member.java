@@ -1,9 +1,12 @@
 package com.example.devSns.Member;
 
+import com.example.devSns.Post.Post;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -31,5 +34,8 @@ public class Member {
     @Column(nullable = false)
     private Integer age;
 
+    @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
+    private List<Post> posts;
 
+    public Member(String nickname, String email, String password, Gender gender, Integer age) {}
 }

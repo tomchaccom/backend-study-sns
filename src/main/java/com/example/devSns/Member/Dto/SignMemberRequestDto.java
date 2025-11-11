@@ -28,7 +28,6 @@ public record SignMemberRequestDto(
 ) {
     public Member toEntity(){
         return new Member(
-                null,
                 this.email,
                 this.nickname,
                 this.password,
