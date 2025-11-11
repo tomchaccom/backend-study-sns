@@ -4,6 +4,7 @@ import com.example.devSns.Comment.CommentRepository;
 import com.example.devSns.Post.Dto.AddPostRequestDto;
 import com.example.devSns.Post.Dto.GetPostResponseDto;
 import com.example.devSns.Post.Dto.UpdatePostRequestDto;
+import com.example.devSns.global.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

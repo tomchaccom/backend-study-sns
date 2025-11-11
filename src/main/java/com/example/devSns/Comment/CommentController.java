@@ -2,7 +2,8 @@ package com.example.devSns.Comment;
 
 import com.example.devSns.Comment.Dto.CreateCommentDto;
 import com.example.devSns.Comment.Dto.UpdateCommentDto;
-import com.example.devSns.Post.EntityNotFoundException;
+
+import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;

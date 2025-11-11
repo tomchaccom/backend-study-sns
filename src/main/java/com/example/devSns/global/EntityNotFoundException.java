@@ -1,4 +1,4 @@
-package com.example.devSns.Post;
+package com.example.devSns.global;
 
 public class EntityNotFoundException extends RuntimeException {
     public EntityNotFoundException(String message) {

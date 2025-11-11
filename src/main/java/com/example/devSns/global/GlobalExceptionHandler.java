@@ -1,4 +1,4 @@
-package com.example.devSns;
+package com.example.devSns.global;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
