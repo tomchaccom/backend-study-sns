@@ -1,6 +1,7 @@
 package com.example.devSns.Post;
 
 import com.example.devSns.Comment.Comment;
+import com.example.devSns.Member.Member;
 import com.example.devSns.Post.Dto.UpdatePostRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -38,6 +39,10 @@ public class Post {
     @OneToMany(mappedBy = "post", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<Comment> comments;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
 
 
     public void Update(UpdatePostRequestDto Dto){
