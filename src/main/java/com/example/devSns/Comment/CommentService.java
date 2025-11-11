@@ -2,7 +2,7 @@ package com.example.devSns.Comment;
 
 import com.example.devSns.Comment.Dto.CreateCommentDto;
 import com.example.devSns.Comment.Dto.UpdateCommentDto;
-import com.example.devSns.Post.EntityNotFoundException;
+import com.example.devSns.global.EntityNotFoundException;
 import com.example.devSns.Post.Post;
 import com.example.devSns.Post.PostRepository;
 import jakarta.transaction.Transactional;

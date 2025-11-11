@@ -4,6 +4,7 @@ import com.example.devSns.Post.Dto.AddPostRequestDto;
 import com.example.devSns.Post.Dto.GetPostResponseDto;
 import com.example.devSns.Post.Dto.UpdatePostRequestDto;
 import jakarta.validation.Valid;
+import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -11,33 +12,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/posts")
+@RequiredArgsConstructor
 public class PostController {
 
     private final PostService postService;
 
-    public PostController(PostService postService) {
-        this.postService = postService;
-    }
-
-    @PostMapping()
+    @PostMapping("members/{member_id}/posts")
     public ResponseEntity<Void> createPost(
             @Valid
-            @RequestBody AddPostRequestDto Dto) {
-        postService.createPost(Dto);
+            @RequestBody AddPostRequestDto Dto,
+           @PathVariable("member_id") Long member_id) {
+
+        postService.createPost(Dto,member_id);
         return ResponseEntity.status(HttpStatus.CREATED).build();
     }
 
-    @GetMapping()
+    @GetMapping("/posts")
     public List<GetPostResponseDto> getAllPosts() {
         return postService.findAll();
     }
-    @GetMapping("/{post_id}")
+    @GetMapping("/posts/{post_id}")
     public GetPostResponseDto getPostById(@PathVariable(name ="post_id") long id) {
         return postService.findById(id);
     }
 
-    @PatchMapping("/{post_id}")
+    @PatchMapping("/posts/{post_id}")
     public void updatePost(
             @Valid
             @RequestBody UpdatePostRequestDto Dto,
@@ -45,7 +44,7 @@ public class PostController {
         postService.updatePost(id, Dto);
     }
 
-    @DeleteMapping("/{post_id}")
+    @DeleteMapping("/posts/{post_id}")
     public ResponseEntity<Void> deletePostById(@PathVariable(name ="post_id") long id) {
         postService.delete(id);
         return ResponseEntity.noContent().build();

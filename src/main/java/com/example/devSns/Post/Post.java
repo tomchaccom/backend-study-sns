@@ -1,6 +1,7 @@
 package com.example.devSns.Post;
 
 import com.example.devSns.Comment.Comment;
+import com.example.devSns.Member.Member;
 import com.example.devSns.Post.Dto.UpdatePostRequestDto;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import jakarta.persistence.*;
@@ -26,9 +27,6 @@ public class Post {
     private String content;
 
     @Column(nullable = false)
-    private Long likeCount;
-
-    @Column(nullable = false)
     private String userName;
 
     private LocalDateTime createdAt; // 생성 시점
@@ -39,26 +37,38 @@ public class Post {
     @JsonManagedReference
     private List<Comment> comments;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "member_id")
+    private Member member;
+
+    private Long likeCount;
 
     public void Update(UpdatePostRequestDto Dto){
         this.content = Dto.content();
         this.userName = Dto.username();
         this.updatedAt = LocalDateTime.now();
     }
-    public Post(String content, String userName) {
+    public Post(String content, String userName, Long likeCount) {
         this.content = content;
         this.userName = userName;
+        this.likeCount = likeCount;
     }
 
     @PrePersist
     protected void onCreate(){
         this.createdAt = LocalDateTime.now();
-        this.likeCount = 0L;
         this.updatedAt = LocalDateTime.now();
     }
     @PreUpdate
     protected void onUpdate(){
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void writePost(Member member){
+        this.member = member;
+    }
+    public void updateLikeCount(Long count) {
+        this.likeCount = count;
     }
 
 }
