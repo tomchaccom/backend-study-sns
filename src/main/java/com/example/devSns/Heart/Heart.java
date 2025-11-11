@@ -32,7 +32,11 @@ public class Heart {
     @Enumerated(EnumType.STRING)
     private LikeStatus like;
 
-    public Heart(Post post, Member member, LikeStatus heart) {}
+    public Heart(Post post, Member member, LikeStatus heart) {
+        this.post = post;
+        this.member = member;
+        this.like = heart;
+    }
 
     public void toggleLike() {
 

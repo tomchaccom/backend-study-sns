@@ -41,15 +41,17 @@ public class Post {
     @JoinColumn(name = "member_id")
     private Member member;
 
+    private Long likeCount;
 
     public void Update(UpdatePostRequestDto Dto){
         this.content = Dto.content();
         this.userName = Dto.username();
         this.updatedAt = LocalDateTime.now();
     }
-    public Post(String content, String userName) {
+    public Post(String content, String userName, Long likeCount) {
         this.content = content;
         this.userName = userName;
+        this.likeCount = likeCount;
     }
 
     @PrePersist
@@ -60,6 +62,13 @@ public class Post {
     @PreUpdate
     protected void onUpdate(){
         this.updatedAt = LocalDateTime.now();
+    }
+
+    public void writePost(Member member){
+        this.member = member;
+    }
+    public void updateLikeCount(Long count) {
+        this.likeCount = count;
     }
 
 }

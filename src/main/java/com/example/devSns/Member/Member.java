@@ -37,5 +37,12 @@ public class Member {
     @OneToMany(mappedBy = "member", cascade = CascadeType.REMOVE, orphanRemoval = true)
     private List<Post> posts;
 
-    public Member(String nickname, String email, String password, Gender gender, Integer age) {}
+    public Member(String nickname, String email, String password, Gender gender, Integer age) {
+        this.nickname = nickname;
+        this.email = email;
+        this.password = password;
+        this.gender = gender;
+        this.age = age;
+    }
+
 }

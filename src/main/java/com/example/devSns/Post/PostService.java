@@ -30,8 +30,13 @@ public class PostService {
     public void createPost(AddPostRequestDto Dto, Long memberId) {
         Post post = new Post(
                 Dto.content(),
-                Dto.username()
+                Dto.username(),
+                0L
         );
+        Member member =  memberRepository.findById(memberId)
+                .orElseThrow(()->new EntityNotFoundException("Member not found"));
+
+        post.writePost(member);
         postRepository.save(post);
     }
     @Transactional(readOnly = true)
@@ -62,8 +67,17 @@ public class PostService {
                 ))
                 .collect(Collectors.toList());
     }
+    @Transactional
+    @Scheduled(cron = "0 * * * * *") // 매 분마다
+    public void countLikes() {
+        List<Post> posts = postRepository.findAll();
 
-
+        for (Post post : posts) {
+            long likeCount = heartRepository.countByPostIdAndLike(post.getId(), LikeStatus.LIKE);
+            post.updateLikeCount((Long) likeCount);
+        }
+    }
+    @Transactional
     public void delete(Long id) {
         Post post = postRepository.findById(id).orElseThrow(
                 () -> new EntityNotFoundException("삭제하려는 게시글이 존재하지 않습니다"));
