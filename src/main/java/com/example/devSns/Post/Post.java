@@ -27,9 +27,6 @@ public class Post {
     private String content;
 
     @Column(nullable = false)
-    private Long likeCount;
-
-    @Column(nullable = false)
     private String userName;
 
     private LocalDateTime createdAt; // 생성 시점
@@ -58,7 +55,6 @@ public class Post {
     @PrePersist
     protected void onCreate(){
         this.createdAt = LocalDateTime.now();
-        this.likeCount = 0L;
         this.updatedAt = LocalDateTime.now();
     }
     @PreUpdate
